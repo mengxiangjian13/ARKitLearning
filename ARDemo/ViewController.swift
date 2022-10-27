@@ -10,12 +10,14 @@ import SceneKit
 import ARKit
 
 enum ARFeature: String {
-case firstGlance = "ARKit First Glance", planeDetection = "AR Plane Detection"
+case firstGlance = "ARKit First Glance",
+     planeDetection = "AR Plane Detection",
+     raycast = "AR Raycast"
 }
 
 class ViewController: UIViewController {
     
-    let allFeatures: [ARFeature] = [.firstGlance, .planeDetection]
+    let allFeatures: [ARFeature] = [.firstGlance, .planeDetection, .raycast]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,6 +90,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 present(vc, animated: true)
             case .planeDetection:
                 let vc = PlaneDetectViewController()
+                vc.modalPresentationStyle = .fullScreen
+                present(vc, animated: true)
+            case .raycast:
+                let vc = RaycastViewController()
                 vc.modalPresentationStyle = .fullScreen
                 present(vc, animated: true)
             }
