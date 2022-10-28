@@ -116,6 +116,7 @@ extension RaycastViewController: ARSCNViewDelegate {
         let planeNode = planeNodeDict[anchor.identifier], let plane = planeNode.geometry as? SCNBox else { return }
         plane.width = CGFloat(anchor.extent.x);
         plane.length = CGFloat(anchor.extent.z);
+        planeNode.position = SCNVector3(anchor.center.x, 0, anchor.center.z)
     }
     // 平面移除
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {

@@ -92,6 +92,7 @@ extension PlaneDetectViewController: ARSCNViewDelegate, ARSessionDelegate {
                 // 平面大小有变化，重新设置平面node的geometry的大小
                 plane.width = CGFloat(anchor.extent.x)
                 plane.length = CGFloat(anchor.extent.z)
+                planeNode.position = SCNVector3(anchor.center.x, 0, anchor.center.z)
             }
         }
     }
