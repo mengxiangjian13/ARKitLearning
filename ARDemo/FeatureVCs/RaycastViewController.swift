@@ -79,7 +79,7 @@ class RaycastViewController: FeatureBaseViewController {
     
     private func addPlaneNode(raycastResult: ARRaycastResult) {
         let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        let shipNode = scene.rootNode
+        guard let shipNode = scene.rootNode.childNodes.first else { return }
         // 将raycast的result transform传递给飞机，就可以在点击的位置上放置飞机
         shipNode.simdTransform = raycastResult.worldTransform
         arSceneView.scene.rootNode.addChildNode(shipNode)
@@ -114,8 +114,15 @@ extension RaycastViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         guard let anchor = anchor as? ARPlaneAnchor,
         let planeNode = planeNodeDict[anchor.identifier], let plane = planeNode.geometry as? SCNBox else { return }
-        plane.width = CGFloat(anchor.extent.x);
-        plane.length = CGFloat(anchor.extent.z);
+        if #available(iOS 16.0, *) {
+            plane.width = CGFloat(anchor.planeExtent.width)
+            plane.length = CGFloat(anchor.planeExtent.height)
+            planeNode.rotation = SCNVector4(x: 0, y: 1, z: 0, w: anchor.planeExtent.rotationOnYAxis)
+        } else {
+            // Fallback on earlier versions
+            plane.width = CGFloat(anchor.extent.x)
+            plane.length = CGFloat(anchor.extent.z)
+        }
         planeNode.position = SCNVector3(anchor.center.x, 0, anchor.center.z)
     }
     // 平面移除

@@ -90,8 +90,16 @@ extension PlaneDetectViewController: ARSCNViewDelegate, ARSessionDelegate {
             print("anchor render updated: \(anchor.identifier), width: \(anchor.extent.x), height: \(anchor.extent.z)")
             if let planeNode = planeNodeDict[anchor.identifier], let plane = planeNode.geometry as? SCNBox {
                 // 平面大小有变化，重新设置平面node的geometry的大小
-                plane.width = CGFloat(anchor.extent.x)
-                plane.length = CGFloat(anchor.extent.z)
+                if #available(iOS 16.0, *) {
+                    plane.width = CGFloat(anchor.planeExtent.width)
+                    plane.length = CGFloat(anchor.planeExtent.height)
+                    // iOS15及其以前的版本，平面旋转了，anchor自己会旋转，只需要适配平面的width，和length就可以了。iOS16，anchor自己自动转，但围绕这y轴旋转的角度是有的，需要自己旋转。
+                    planeNode.rotation = SCNVector4(x: 0, y: 1, z: 0, w: anchor.planeExtent.rotationOnYAxis)
+                } else {
+                    // Fallback on earlier versions
+                    plane.width = CGFloat(anchor.extent.x)
+                    plane.length = CGFloat(anchor.extent.z)
+                }
                 planeNode.position = SCNVector3(anchor.center.x, 0, anchor.center.z)
             }
         }
