@@ -12,12 +12,13 @@ import ARKit
 enum ARFeature: String {
 case firstGlance = "ARKit First Glance",
      planeDetection = "AR Plane Detection",
-     raycast = "AR Raycast"
+     raycast = "AR Raycast",
+     imageTrack = "AR 2D Image Tracking"
 }
 
 class ViewController: UIViewController {
     
-    let allFeatures: [ARFeature] = [.firstGlance, .planeDetection, .raycast]
+    let allFeatures: [ARFeature] = [.firstGlance, .planeDetection, .raycast, .imageTrack]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,6 +95,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 present(vc, animated: true)
             case .raycast:
                 let vc = RaycastViewController()
+                vc.modalPresentationStyle = .fullScreen
+                present(vc, animated: true)
+            case .imageTrack:
+                let vc = ImageTrackingViewController()
                 vc.modalPresentationStyle = .fullScreen
                 present(vc, animated: true)
             }
