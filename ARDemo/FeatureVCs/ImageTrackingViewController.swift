@@ -7,8 +7,12 @@
 
 import UIKit
 import ARKit
+import SpriteKit
+import AVFoundation
 
 class ImageTrackingViewController: FeatureBaseViewController {
+    
+    var videoNode: SKVideoNode?
     
     lazy var arSceneView: ARSCNView = {
         let sceneView = ARSCNView(frame: CGRectZero)
@@ -61,15 +65,37 @@ extension ImageTrackingViewController: ARSCNViewDelegate {
         guard let imageAnchor = anchor as? ARImageAnchor else { return }
         
         print("add image anchor name: \(String(describing: imageAnchor.name))")
+        
         // 使用图片真实大小初始化，当加入到node当中，会进行缩放，适应场景中的图片大小。
         let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
-        plane.firstMaterial?.diffuse.contents = UIColor.red.withAlphaComponent(0.9)
+        if imageAnchor.name == "unity" {
+            print("detect unity logo")
+            let videoSize = CGSize(width: 1280, height: 720)
+            let videoURL = Bundle.main.url(forResource: "Unitylogo", withExtension: ".mp4")
+            let avPlayer = AVPlayer(url: videoURL!)
+            // playerScene宽度应该与视频宽度相同，宽高比例应该与检测出来的图片的宽高比例相同，这样可以保证视频node的宽高比例正确
+            let playerScene = SKScene(size: CGSize(width: videoSize.width, height: videoSize.width / imageAnchor.referenceImage.physicalSize.width * imageAnchor.referenceImage.physicalSize.height))
+            // 可以根据宽高比例缩放
+            playerScene.scaleMode = .aspectFit
+            videoNode = SKVideoNode(avPlayer: avPlayer)
+            videoNode!.position = CGPoint(x: playerScene.size.width / 2, y: playerScene.size.height / 2)
+            // 视频是什么比例，就配置这个比例
+            videoNode!.size = videoSize
+            // yScale需要设置-1，不然视频是倒着的
+            videoNode!.yScale = -1
+            videoNode!.play()
+            playerScene.addChild(videoNode!)
+            plane.firstMaterial?.diffuse.contents = playerScene
+        } else {
+            plane.firstMaterial?.diffuse.contents = UIColor.red.withAlphaComponent(0.9)
+        }
         let planeNode = SCNNode(geometry: plane)
         // SCNPlane是2D的控件，坐标系在3D空间中是竖直的，和3D空间的坐标系不同。所以需要旋转90度
         planeNode.eulerAngles.x = -.pi/2
         node.addChildNode(planeNode)
-                
+        
         boxsDict[anchor.identifier] = planeNode
+        
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {

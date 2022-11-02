@@ -10,6 +10,7 @@
 		6537ED332907E77E00496700 /* BriefViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6537ED322907E77E00496700 /* BriefViewController.swift */; };
 		6537ED352907E7C700496700 /* PlaneDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6537ED342907E7C700496700 /* PlaneDetectViewController.swift */; };
 		6537ED372907E8E700496700 /* FeatureBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6537ED362907E8E700496700 /* FeatureBaseViewController.swift */; };
+		6552338429126C0D0088DFB5 /* Unitylogo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6552338329126C0D0088DFB5 /* Unitylogo.mp4 */; };
 		65620AA72910FE740021ABF2 /* ImageTrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65620AA62910FE740021ABF2 /* ImageTrackingViewController.swift */; };
 		659E2F8D29067DB50031F283 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659E2F8C29067DB50031F283 /* AppDelegate.swift */; };
 		659E2F8F29067DB50031F283 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 659E2F8E29067DB50031F283 /* art.scnassets */; };
@@ -24,6 +25,7 @@
 		6537ED322907E77E00496700 /* BriefViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefViewController.swift; sourceTree = "<group>"; };
 		6537ED342907E7C700496700 /* PlaneDetectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDetectViewController.swift; sourceTree = "<group>"; };
 		6537ED362907E8E700496700 /* FeatureBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureBaseViewController.swift; sourceTree = "<group>"; };
+		6552338329126C0D0088DFB5 /* Unitylogo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Unitylogo.mp4; sourceTree = "<group>"; };
 		65620AA62910FE740021ABF2 /* ImageTrackingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTrackingViewController.swift; sourceTree = "<group>"; };
 		659E2F8929067DB50031F283 /* ARDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		659E2F8C29067DB50031F283 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 		659E2F8B29067DB50031F283 /* ARDemo */ = {
 			isa = PBXGroup;
 			children = (
+				6552338329126C0D0088DFB5 /* Unitylogo.mp4 */,
 				6537ED312907E72700496700 /* FeatureVCs */,
 				659E2F8C29067DB50031F283 /* AppDelegate.swift */,
 				659E2F8E29067DB50031F283 /* art.scnassets */,
@@ -147,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				659E2F8F29067DB50031F283 /* art.scnassets in Resources */,
+				6552338429126C0D0088DFB5 /* Unitylogo.mp4 in Resources */,
 				659E2F9929067DB60031F283 /* LaunchScreen.storyboard in Resources */,
 				659E2F9629067DB60031F283 /* Assets.xcassets in Resources */,
 				659E2F9429067DB50031F283 /* Main.storyboard in Resources */,
