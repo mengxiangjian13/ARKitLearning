@@ -96,6 +96,14 @@ extension ImageTrackingViewController: ARSCNViewDelegate {
         
         boxsDict[anchor.identifier] = planeNode
         
+        // 设置动画
+        planeNode.opacity = 0.1
+        planeNode.scale = SCNVector3(x: 0.1, y: 0.1, z: 0.1)
+        planeNode.runAction(SCNAction.group([
+            .fadeIn(duration: 1),
+            .scale(to: 1, duration: 1)
+        ]))
+        
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
